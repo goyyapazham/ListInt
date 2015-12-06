@@ -32,7 +32,7 @@ public class SuperArray implements ListInt{
 
 		
     //~~~~~METHODS~~~~~
-    //default constructor – initializes 10-item array
+    //default constructor - initializes 10-item array
     public SuperArray() { 
 	_data = new int[10];
 	_lastPos = -1; //flag to indicate no lastpos yet
@@ -92,7 +92,9 @@ public class SuperArray implements ListInt{
     //inserts an item at index
     //shifts existing elements to the right
     public void add( int index, int newVal ) {
-	if (index < _size && index > -1) {
+	if (_size == _data.length)
+	    expand();
+	else if (index < _size && index > -1) {
 	    for (int i = _lastPos; i > index - 1; i--) {
 	        _data[i + 1] = _data[i];
 	    }
@@ -126,57 +128,29 @@ public class SuperArray implements ListInt{
 
     //main method for testing
     public static void main( String[] args ) {
-	ListInt curtis = new SuperArray();
-	System.out.println("Printing empty SuperArray curtis...");
-	System.out.println(curtis);
 
-	for( int i = 0; i < curtis._data.length; i++ ) {
-	    curtis.set(i,i*2);
-	    curtis._size++; //necessary bc no add() method yet
-	}
+        ListInt x = new SuperArray();
+	System.out.println("x pre-populate:  " + x);
 
-	System.out.println("Printing populated SuperArray curtis...");
-	System.out.println(curtis);
+	x.add(5);
+	x.add(4);
+	x.add(3);
+	x.add(2);
+	x.add(1);
 
-	System.out.println("testing get()...");
-	for( int i = 0; i < curtis._size; i++ ) {
-	    System.out.print( "item at index" + i + ":\t" );
-	    System.out.println( curtis.get(i) );
-	}
+	System.out.println("x post-populate: " + x);
 
-	System.out.println("Expanded SuperArray curtis:");
-	curtis.expand();
-	System.out.println(curtis);
+	x.remove(3);
+	System.out.println("x.remove(3):     " + x);
+	x.remove(3);
+	System.out.println("x.remove(3):     " + x);
 
-        ListInt mayfield = new SuperArray();
-	System.out.println("Printing empty SuperArray mayfield...");
-	System.out.println(mayfield);
-
-	mayfield.add(5);
-	mayfield.add(4);
-	mayfield.add(3);
-	mayfield.add(2);
-	mayfield.add(1);
-
-	System.out.println("Printing populated SuperArray mayfield...");
-	System.out.println(mayfield);
-
-	mayfield.remove(3);
-	System.out.println("Printing SuperArray mayfield post-remove...");
-	System.out.println(mayfield);
-	mayfield.remove(3);
-	System.out.println("Printing SuperArray mayfield post-remove...");
-	System.out.println(mayfield);
-
-	mayfield.add(3,99);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
-	mayfield.add(2,88);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
-	mayfield.add(1,77);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
+	x.add(3,99);
+	System.out.println("x.add(3,99):     " + x);
+	x.add(2,88);
+	System.out.println("x.add(2,88):     " + x);
+	x.add(1,77);
+	System.out.println("x.add(1,77):     " + x);
 	//*****INSERT ANY ADDITIONAL TEST CALLS HERE*****
 
     }//end main
